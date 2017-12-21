@@ -15,6 +15,7 @@ class DateManager: NSObject {
     var endDay = Date()
     let calendar = Calendar.current
     let date = Date()
+    //let view1 = ViewController()
     
     var days = [31,28,31,30,31,30,31,31,30,31,30,31]
     
@@ -103,6 +104,8 @@ class DateManager: NSObject {
         return calendar.component(.day, from: currentday!).description
     }
     
+    
+    
     //今セレクトされているselectDayの年月をテキストで出力
     func CalendarHeader()->String{
         let formatter = DateFormatter()
@@ -136,6 +139,11 @@ class DateManager: NSObject {
     func nextDayCalendar(){
         selectDay = calendar.date(byAdding: .day, value: 1, to: selectDay)!
     }
+    
+    func tapDayCalendar(){
+        selectDay = calendar.date(byAdding: .day, value: selected+1, to: biginDay-1)!
+    }
+    
     
     
 }

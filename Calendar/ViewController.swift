@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+var selected = 0
+
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     
@@ -45,9 +47,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let realm = try! Realm()
     
     let dateManager = DateManager()
+    let layout = UICollectionViewFlowLayout()
     
     let weeks = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-    let layout = UICollectionViewFlowLayout()
+    
     var cellWidth:CGFloat = 0.0
     var cellHeight:CGFloat = 0.0
     let cellMargin : CGFloat = 2.0  //セルのマージン。セルのアイテムのマージンも別にあって紛らわしい。アイテムのマージンはゼロに設定し直してる
@@ -154,6 +157,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }else{
             return dateManager.daysAcquisition()        //section:1は日付を表示 　※セルの数は始点から終点までの日数
         }
+    }
+    
+    //選択されたセルの日付を出力する
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selected = indexPath.row
+        dateManager.tapDayCalendar()
+        calendarCollectionView.reloadData()
+        headerTitle.text = dateManager.CalendarHeader()
+        print(dateManager.selectDay)
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+    
+    func selection() -> Int{
+        return selected
     }
     
 
