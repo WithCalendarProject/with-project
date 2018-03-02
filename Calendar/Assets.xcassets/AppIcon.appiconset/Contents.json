@@ -33,12 +33,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "calender-2579300_960_720.png",
+      "filename" : "with@120p.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
       "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "アセット 3.png",
       "scale" : "3x"
     },
     {

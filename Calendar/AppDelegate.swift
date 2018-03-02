@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -16,6 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        sleep(2)  //lounchscreenの表示秒数
+        FirebaseApp.configure()
+        if Auth.auth().currentUser != nil {  //もしもユーザーがログインしていたら
+            // User is signed in.
+            //Storyboardを指定
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            //ViewcontrollerをinitialViewControllerに指定
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "calendar")
+            //rootViewControllerに入れる
+            self.window?.rootViewController = initialViewController
+            //表示
+            self.window?.makeKeyAndVisible()
+        }
         return true
     }
 

@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5077A9F81FEA1CE700D84C76 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077A9F71FEA1CE700D84C76 /* ViewController2.swift */; };
-		5077A9F91FEA881400D84C76 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5077A9FA1FEA881400D84C76 /* Realm.framework */; };
-		5077A9FB1FEA881900D84C76 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5077A9FC1FEA881900D84C76 /* RealmSwift.framework */; };
-		5077A9FE1FEA8F5100D84C76 /* DatePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077A9FD1FEA8F5100D84C76 /* DatePlan.swift */; };
+		5077A9F81FEA1CE700D84C76 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077A9F71FEA1CE700D84C76 /* InputViewController.swift */; };
 		50A948091FD4F834002DD6C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A948081FD4F834002DD6C8 /* AppDelegate.swift */; };
 		50A9480B1FD4F834002DD6C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9480A1FD4F834002DD6C8 /* ViewController.swift */; };
 		50A9480E1FD4F834002DD6C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A9480C1FD4F834002DD6C8 /* Main.storyboard */; };
@@ -18,16 +15,29 @@
 		50A948131FD4F834002DD6C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A948111FD4F834002DD6C8 /* LaunchScreen.storyboard */; };
 		50A9481B1FD6B102002DD6C8 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9481A1FD6B102002DD6C8 /* CalendarCell.swift */; };
 		50A948221FD998C7002DD6C8 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9481E1FD97FAB002DD6C8 /* DateManager.swift */; };
+		50AF5EFF2030354700189FC8 /* with.png in Resources */ = {isa = PBXBuildFile; fileRef = 50AF5EFE2030354600189FC8 /* with.png */; };
+		50AF5F012031F14800189FC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50AF5F002031F14700189FC8 /* GoogleService-Info.plist */; };
+		50AF5F0320321C9300189FC8 /* LoiginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF5F0220321C9300189FC8 /* LoiginViewController.swift */; };
+		50AF5F0620337ED800189FC8 /* leveldb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF5F0720337ED800189FC8 /* leveldb.framework */; };
+		50AF5F0820337EDD00189FC8 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF5F0920337EDD00189FC8 /* GoogleToolboxForMac.framework */; };
+		50AF5F0A20337EE300189FC8 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF5F0B20337EE300189FC8 /* GTMSessionFetcher.framework */; };
+		50AF5F0C20337EE800189FC8 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF5F0D20337EE800189FC8 /* nanopb.framework */; };
+		50B67AAB1FFCAEBB00AF9877 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B67AAA1FFCAEBB00AF9877 /* HomeViewController.swift */; };
+		50C0A895203DA35E00D40A0E /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0A894203DA35E00D40A0E /* MyPageViewController.swift */; };
+		50C0A89B203DD15800D40A0E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0A89A203DD15700D40A0E /* SearchViewController.swift */; };
+		50C0A89F203DD8AC00D40A0E /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0A89E203DD8AC00D40A0E /* UserViewController.swift */; };
+		50C0A8A1204193D200D40A0E /* CreateCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0A8A0204193D200D40A0E /* CreateCalendar.swift */; };
+		50DEA2FB2042F0DF00F6ED66 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DEA2FA2042F0DF00F6ED66 /* FollowViewController.swift */; };
+		50DEA2FD2042F69300F6ED66 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DEA2FC2042F69300F6ED66 /* FirebaseManager.swift */; };
 		C02248B6531168DD32F0B24B /* Pods_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C83473B34D32B0BB3659AE /* Pods_Calendar.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0369CC63CE9B23D14CDB363A /* Pods-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calendar/Pods-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		04C83473B34D32B0BB3659AE /* Pods_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5077A9F71FEA1CE700D84C76 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		5077A9F71FEA1CE700D84C76 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		5077A9FA1FEA881400D84C76 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5077A9FC1FEA881900D84C76 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5077A9FD1FEA8F5100D84C76 /* DatePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlan.swift; sourceTree = "<group>"; };
 		50A948051FD4F834002DD6C8 /* Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A948081FD4F834002DD6C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50A9480A1FD4F834002DD6C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +47,22 @@
 		50A948141FD4F834002DD6C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50A9481A1FD6B102002DD6C8 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		50A9481E1FD97FAB002DD6C8 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		50AF5EFD202EC8B600189FC8 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AF5EFE2030354600189FC8 /* with.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = with.png; sourceTree = "<group>"; };
+		50AF5F002031F14700189FC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		50AF5F0220321C9300189FC8 /* LoiginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoiginViewController.swift; sourceTree = "<group>"; };
+		50AF5F0720337ED800189FC8 /* leveldb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = leveldb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AF5F0920337EDD00189FC8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AF5F0B20337EE300189FC8 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AF5F0D20337EE800189FC8 /* nanopb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = nanopb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50B67AAA1FFCAEBB00AF9877 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		50C0A890203871D900D40A0E /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50C0A894203DA35E00D40A0E /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		50C0A89A203DD15700D40A0E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = /Users/kawamurashuya/Documents/Xcode/Calendar/Calendar/SearchViewController.swift; sourceTree = "<absolute>"; };
+		50C0A89E203DD8AC00D40A0E /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		50C0A8A0204193D200D40A0E /* CreateCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCalendar.swift; sourceTree = "<group>"; };
+		50DEA2FA2042F0DF00F6ED66 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
+		50DEA2FC2042F69300F6ED66 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6CA147B150606E53AA5E6F13 /* Pods-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calendar/Pods-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,8 +71,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5077A9FB1FEA881900D84C76 /* RealmSwift.framework in Frameworks */,
-				5077A9F91FEA881400D84C76 /* Realm.framework in Frameworks */,
+				50AF5F0C20337EE800189FC8 /* nanopb.framework in Frameworks */,
+				50AF5F0A20337EE300189FC8 /* GTMSessionFetcher.framework in Frameworks */,
+				50AF5F0820337EDD00189FC8 /* GoogleToolboxForMac.framework in Frameworks */,
+				50AF5F0620337ED800189FC8 /* leveldb.framework in Frameworks */,
 				C02248B6531168DD32F0B24B /* Pods_Calendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,16 +103,25 @@
 		50A948071FD4F834002DD6C8 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				5077A9F71FEA1CE700D84C76 /* ViewController2.swift */,
 				50A948081FD4F834002DD6C8 /* AppDelegate.swift */,
 				50A9481E1FD97FAB002DD6C8 /* DateManager.swift */,
+				50DEA2FC2042F69300F6ED66 /* FirebaseManager.swift */,
+				50C0A8A0204193D200D40A0E /* CreateCalendar.swift */,
 				50A9480A1FD4F834002DD6C8 /* ViewController.swift */,
+				5077A9F71FEA1CE700D84C76 /* InputViewController.swift */,
+				50AF5F0220321C9300189FC8 /* LoiginViewController.swift */,
+				50B67AAA1FFCAEBB00AF9877 /* HomeViewController.swift */,
+				50DEA2FA2042F0DF00F6ED66 /* FollowViewController.swift */,
 				50A9481A1FD6B102002DD6C8 /* CalendarCell.swift */,
-				5077A9FD1FEA8F5100D84C76 /* DatePlan.swift */,
-				50A9480C1FD4F834002DD6C8 /* Main.storyboard */,
+				50C0A89E203DD8AC00D40A0E /* UserViewController.swift */,
+				50C0A89A203DD15700D40A0E /* SearchViewController.swift */,
+				50C0A894203DA35E00D40A0E /* MyPageViewController.swift */,
 				50A9480F1FD4F834002DD6C8 /* Assets.xcassets */,
+				50A9480C1FD4F834002DD6C8 /* Main.storyboard */,
 				50A948111FD4F834002DD6C8 /* LaunchScreen.storyboard */,
 				50A948141FD4F834002DD6C8 /* Info.plist */,
+				50AF5F002031F14700189FC8 /* GoogleService-Info.plist */,
+				50AF5EFE2030354600189FC8 /* with.png */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -101,6 +138,12 @@
 		E12F00FF261D1920FF458A23 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50C0A890203871D900D40A0E /* ObjectMapper.framework */,
+				50AF5F0D20337EE800189FC8 /* nanopb.framework */,
+				50AF5F0B20337EE300189FC8 /* GTMSessionFetcher.framework */,
+				50AF5F0920337EDD00189FC8 /* GoogleToolboxForMac.framework */,
+				50AF5F0720337ED800189FC8 /* leveldb.framework */,
+				50AF5EFD202EC8B600189FC8 /* Realm.framework */,
 				5077A9FC1FEA881900D84C76 /* RealmSwift.framework */,
 				5077A9FA1FEA881400D84C76 /* Realm.framework */,
 				04C83473B34D32B0BB3659AE /* Pods_Calendar.framework */,
@@ -172,7 +215,9 @@
 			files = (
 				50A948131FD4F834002DD6C8 /* LaunchScreen.storyboard in Resources */,
 				50A948101FD4F834002DD6C8 /* Assets.xcassets in Resources */,
+				50AF5F012031F14800189FC8 /* GoogleService-Info.plist in Resources */,
 				50A9480E1FD4F834002DD6C8 /* Main.storyboard in Resources */,
+				50AF5EFF2030354700189FC8 /* with.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,13 +231,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Calendar/Pods-Calendar-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -239,11 +288,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5077A9FE1FEA8F5100D84C76 /* DatePlan.swift in Sources */,
-				5077A9F81FEA1CE700D84C76 /* ViewController2.swift in Sources */,
+				50DEA2FD2042F69300F6ED66 /* FirebaseManager.swift in Sources */,
+				50C0A8A1204193D200D40A0E /* CreateCalendar.swift in Sources */,
+				50C0A895203DA35E00D40A0E /* MyPageViewController.swift in Sources */,
+				50C0A89F203DD8AC00D40A0E /* UserViewController.swift in Sources */,
+				50DEA2FB2042F0DF00F6ED66 /* FollowViewController.swift in Sources */,
+				5077A9F81FEA1CE700D84C76 /* InputViewController.swift in Sources */,
 				50A9480B1FD4F834002DD6C8 /* ViewController.swift in Sources */,
+				50C0A89B203DD15800D40A0E /* SearchViewController.swift in Sources */,
 				50A948221FD998C7002DD6C8 /* DateManager.swift in Sources */,
 				50A948091FD4F834002DD6C8 /* AppDelegate.swift in Sources */,
+				50B67AAB1FFCAEBB00AF9877 /* HomeViewController.swift in Sources */,
+				50AF5F0320321C9300189FC8 /* LoiginViewController.swift in Sources */,
 				50A9481B1FD6B102002DD6C8 /* CalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

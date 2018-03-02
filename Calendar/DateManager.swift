@@ -15,13 +15,34 @@ class DateManager: NSObject {
     var endDay = Date()
     let calendar = Calendar.current
     let date = Date()
-    //let view1 = ViewController()
     
     var days = [31,28,31,30,31,30,31,31,30,31,30,31]
     
     func selectDate() -> Int{
         return calendar.component(.day,from: selectDay)
     }
+    
+    func selectMonth() -> Int{
+        return calendar.component(.month,from: selectDay)
+    }
+    
+    func selectYear() -> Int{
+        return calendar.component(.year,from: selectDay)
+    }
+    
+    func createCalendar(collection: UICollectionView) -> () {
+        
+        
+        
+    }
+    
+    
+    //Dateから年月日を抽出する関数
+    /*func roundDate(_ date: Date, calendar cal: Calendar) -> Date{
+        return cal.date(from: DateComponents(year: cal.component(.year, from: date), month: cal.component(.month, from: date), day: cal.component(.day, from: date)))!
+    }*/
+    
+    
     
     
     func BeginOfMonthCalender() -> Date{
@@ -109,6 +130,13 @@ class DateManager: NSObject {
     //今セレクトされているselectDayの年月をテキストで出力
     func CalendarHeader()->String{
         let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY年　MM月"
+        
+        return formatter.string(from: selectDay)
+    }
+    
+    func formatSelect()->String{
+        let formatter = DateFormatter()
         formatter.dateFormat = "YYYY/MM/dd"
         
         return formatter.string(from: selectDay)
@@ -123,6 +151,8 @@ class DateManager: NSObject {
     func preMonthCalendar(){
         selectDay = calendar.date(byAdding: .month, value: -1, to: selectDay)!
     }
+    
+    
     
     //SelectDayを1か月進ませる
     func nextMonthCalendar(){
@@ -143,6 +173,8 @@ class DateManager: NSObject {
     func tapDayCalendar(){
         selectDay = calendar.date(byAdding: .day, value: selected+1, to: biginDay-1)!
     }
+    
+    
     
     
     
