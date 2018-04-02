@@ -83,6 +83,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //データを読み込むためのメソッド
         self.read()
         
+        /*
         //上線のCALayerを作成
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: bottomView.frame.width, height: 1.0)
@@ -96,7 +97,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //作成したViewに上線を追加
         bottomView.layer.addSublayer(topBorder)
         calendarCollectionView.layer.addSublayer(bottomBorder)
-        
+        */
         headerTitle.text = dateManager.CalendarHeader()  //追加
         headerTitle.sizeToFit()
         
@@ -107,10 +108,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         /*
         firebaseManager.readDataNomal(sortKey: "date", targetValue: "\(dateManager.formatSelect())", key: "datePlans","\(firebaseManager.accountID)")*/
         
-        firebaseManager.readDataFilter(function: {() -> () in
+        firebaseManager.readDataFilterSingle(key: (Auth.auth().currentUser?.uid)!,"datePlans", filterType: "equalTo", sortKey: "date", targetValue: dateManager.formatSelect(), function: {() -> () in
             //テーブルビューをリロード
             self.datePlanView.reloadData()
-        }, sortKey: "date", targetValue: dateManager.formatSelect(), key: (Auth.auth().currentUser?.uid)!,"datePlans")
+        })
     }
     
     //InputViewControllerへの遷移

@@ -111,9 +111,6 @@ class InputViewController: UIViewController, UITextFieldDelegate{
     
         
     
-        
-    
-    
     /*
     // MARK: - Navigation
 

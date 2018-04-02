@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //Storyboardを指定
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             //ViewcontrollerをinitialViewControllerに指定
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "calendar")
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "tabBar")
             //rootViewControllerに入れる
             self.window?.rootViewController = initialViewController
             //表示

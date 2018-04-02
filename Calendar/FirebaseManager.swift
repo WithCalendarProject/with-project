@@ -21,65 +21,535 @@ class FirebaseManager: NSObject {
     
     
     //C言語のポインタみたいにいくらこっちで値を変更しても元々の値は変わらない。
-    func readDataFilter(function: @escaping () -> (), sortKey: String,targetValue: Any,key: String...) -> () {
+    func readDataFilterSingle(key: String...,filterType: String, sortKey: String,targetValue: Any, function: @escaping () -> ()) -> () {
         
-        if(key.count == 1){
+        if filterType == "equalTo" {
+
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "toFirst" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)       // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "toLast" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "startAt" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)       // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "endAt" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observeSingleEvent(of: .value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }
+        
+        print("content:\(contentArray)")
+        
+    }
+    
+    func readDataFilterObserve(key: String...,filterType: String, sortKey: String,targetValue: Any, function: @escaping () -> ()) -> () {
+        
+        if filterType == "equalTo" {
             
-            ref.child("\(key[0])")
-                .queryOrdered(byChild: "\(sortKey)") // ソートキー
-                .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
-                .observe(.value, with: {(snapShots) in
-                    if snapShots.children.allObjects is [DataSnapshot] {
-                        print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                        print("snapShot...\(snapShots)") //読み込んだデータをプリント
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                        self.snap = snapShots
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                    }
-                    self.reload(snap: self.snap,function: function)
-                    
-                })
-        }else if (key.count == 2){
-            
-            ref.child("\(key[0])")
-                .child("\(key[1])")
-                .queryOrdered(byChild: "\(sortKey)") // ソートキー
-                .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
-                .observe(.value, with: {(snapShots) in
-                    if snapShots.children.allObjects is [DataSnapshot] {
-                        print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                        print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "toFirst" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)       // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                        self.snap = snapShots
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                    }
-                   self.reload(snap: self.snap,function: function)
-                   
-                })
-        }else if(key.count == 3){
-            
-            ref.child("\(key[0])")
-                .child("\(key[1])")
-                .child("\(key[2])")
-                .queryOrdered(byChild: "\(sortKey)") // ソートキー
-                .queryEqual(toValue: "\(targetValue)")        // 値がtargetValueと同じものだけをfilterして取り出す
-                .observe(.value, with: {(snapShots) in
-                    if snapShots.children.allObjects is [DataSnapshot] {
-                        print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                        print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "toLast" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                        self.snap = snapShots
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
                         
-                    }
-                self.reload(snap: self.snap,function: function)
-            })
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryLimited(toFirst: targetValue as! UInt)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "startAt" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)       // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryStarting(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
+        }else if filterType == "endAt" {
+            if(key.count == 1){
+                ref.child("\(key[0])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if (key.count == 2){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                        
+                    })
+            }else if(key.count == 3){
+                
+                ref.child("\(key[0])")
+                    .child("\(key[1])")
+                    .child("\(key[2])")
+                    .queryOrdered(byChild: "\(sortKey)") // ソートキー
+                    .queryEnding(atValue: targetValue)        // 値がtargetValueと同じものだけをfilterして取り出す
+                    .observe(.value, with: {(snapShots) in
+                        if snapShots.children.allObjects is [DataSnapshot] {
+                            print("ManagerSnapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                            print("snapShot...\(snapShots)") //読み込んだデータをプリント
+                            
+                            self.snap = snapShots
+                            
+                        }
+                        self.reload(snap: self.snap,function: function)
+                    })
+            }
         }
         
         print("content:\(contentArray)")
         
     }
 
-    func readDataNomal(function: @escaping () -> (),key: String...) -> () {
+    func readDataObserve(key: String..., function: @escaping () -> ()) -> () {
         if(key.count == 1){
             
             ref.child("\(key[0])")
@@ -125,6 +595,51 @@ class FirebaseManager: NSObject {
         }
     }
     
+    func readDataObserveSingleEvent(key: String..., function: @escaping () -> ()) -> () {
+        
+        if(key.count == 1){
+            
+            ref.child("\(key[0])")
+                .observeSingleEvent(of: .value, with: { (snapShots) in
+                    if snapShots.children.allObjects is [DataSnapshot] {
+                        print("single:snapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                        print("single:snapShot...\(snapShots)") //読み込んだデータをプリント
+                        
+                        self.snap = snapShots
+                    }
+                    self.reload(snap: self.snap,function: function)
+                    
+                })
+        }else if (key.count == 2){
+            
+            ref.child("\(key[0])")
+                .child("\(key[1])")
+                .observeSingleEvent(of: .value, with: { (snapShots) in
+                    if snapShots.children.allObjects is [DataSnapshot] {
+                        print("single:snapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                        print("single:snapShot...\(snapShots)") //読み込んだデータをプリント
+                        
+                        self.snap = snapShots
+                    }
+                    self.reload(snap: self.snap,function: function)
+                })
+        }else if(key.count == 3){
+            
+            ref.child("\(key[0])")
+                .child("\(key[1])")
+                .child("\(key[2])")
+                .observeSingleEvent(of: .value, with: { (snapShots) in
+                    if snapShots.children.allObjects is [DataSnapshot] {
+                        print("single:snapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
+                        print("single:snapShot...\(snapShots)") //読み込んだデータをプリント
+                        
+                        self.snap = snapShots
+                    }
+                    self.reload(snap: self.snap,function: function)
+                })
+        }
+    }
+    
     //読み込んだデータは最初すべてのデータが一つにまとまっているので、それらを分割して、配列に入れる
     func reload(snap: DataSnapshot,function: @escaping () -> ()) -> () {
         if snap.exists() {
@@ -147,6 +662,8 @@ class FirebaseManager: NSObject {
             
         }
     }
+    
+    
     
     func setValue(key: String...,value: [String: Any]) {
         
@@ -178,18 +695,13 @@ class FirebaseManager: NSObject {
     
     func getMyID() -> String {
         
-        
-        readDataFilter(function: {() -> () in
+        readDataFilterSingle(key: "userList", "users",filterType: "equalTo", sortKey: "accountID", targetValue: accountID,function: {() -> () in
             
             let item = self.contentArray[0]
             let content = item.value as! Dictionary<String, AnyObject>
             
             self.myID = String(describing: content["userID"]!)
-            
-        }, sortKey: "accountID", targetValue: accountID, key: "userList", "users")
-    
+        })
         return self.myID
     }
-    
-    
 }

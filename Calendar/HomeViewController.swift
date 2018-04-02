@@ -50,29 +50,29 @@ class HomeViewController: UIViewController {
     
     func read()  {
         
-        firebaseManager.readDataNomal(function: {() -> () in
+        firebaseManager.readDataObserve(key: (Auth.auth().currentUser?.uid)!, "userInfomation", function: {() -> () in
             
             if !self.firebaseManager.contentArray.isEmpty{
-            //配列の該当のデータをitemという定数に代入
-            let item = self.firebaseManager.contentArray[0]
-            //itemの中身を辞書型に変換
-            let content = item.value as! Dictionary<String, AnyObject>
-            //
-            self.NameLabel.text = String(describing: content["userName"]!)
-            self.IDLabel.text = String(describing: content["userID"]!)
-            self.ComentLabel.text = String(describing: content["coment"]!)
-            self.IconImage = UIImageView(image: #imageLiteral(resourceName: "User"))
-            
-            self.IDLabel.font = UIFont(name: "HiraKakuProN-W3", size: 12)
-            self.IDLabel.textColor = UIColor.lightGray
-            self.IDLabel.textAlignment = NSTextAlignment.center
-            
-            self.NameLabel.sizeToFit()
-            self.IDLabel.sizeToFit()
-            self.ComentLabel.sizeToFit()
+                //配列の該当のデータをitemという定数に代入
+                let item = self.firebaseManager.contentArray[0]
+                //itemの中身を辞書型に変換
+                let content = item.value as! Dictionary<String, AnyObject>
+                //
+                self.NameLabel.text = String(describing: content["userName"]!)
+                self.IDLabel.text = String(describing: content["userID"]!)
+                self.ComentLabel.text = String(describing: content["coment"]!)
+                self.IconImage = UIImageView(image: #imageLiteral(resourceName: "User"))
+                
+                self.IDLabel.font = UIFont(name: "HiraKakuProN-W3", size: 12)
+                self.IDLabel.textColor = UIColor.lightGray
+                self.IDLabel.textAlignment = NSTextAlignment.center
+                
+                self.NameLabel.sizeToFit()
+                self.IDLabel.sizeToFit()
+                self.ComentLabel.sizeToFit()
             }
             
-        } , key: (Auth.auth().currentUser?.uid)!, "userInfomation")
+        })
         
         
 
@@ -97,43 +97,34 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        firebaseManager.readDataFilter(function: {() -> () in
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "equalTo", sortKey: "accountID", targetValue: firebaseManager.accountID, function: {() -> () in
             
-            if !self.firebaseManager.contentArray.isEmpty{
-            let item = self.firebaseManager.contentArray[0]
-            let content = item.value as! Dictionary<String, AnyObject>
-            self.myID = String(describing: content["userID"]!)
-            
-            self.firebaseManager.readDataNomal(function: {() -> () in
-                
-                if !self.firebaseManager.contentArray.isEmpty{
+            if !self.firebaseManager.contentArray.isEmpty {
                 let item = self.firebaseManager.contentArray[0]
-                //itemの中身を辞書型に変換
                 let content = item.value as! Dictionary<String, AnyObject>
+                self.myID = String(describing: content["userID"]!)
                 
-                self.followLabel.text = String(content.count)
-                }
-                
-            }, key: "friends","following","\(self.myID)")
-            
-            self.firebaseManager.readDataNomal(function: {() -> () in
-                
-                if !self.firebaseManager.contentArray.isEmpty{
-                    let item = self.firebaseManager.contentArray[0]
-                    //itemの中身を辞書型に変換
-                    let content = item.value as! Dictionary<String, AnyObject>
-                    
-                    self.followerLabel.text = String(content.count)
-                }
-                
-            }, key: "friends","follower","\(self.myID)")
+                self.firebaseManager.readDataObserve(key: "friends","following","\(self.myID)", function: {() -> () in
+                    if !self.firebaseManager.contentArray.isEmpty {
+                        let item = self.firebaseManager.contentArray[0]
+                        //itemの中身を辞書型に変換
+                        let content = item.value as! Dictionary<String, AnyObject>
+                        
+                        self.followLabel.text = String(content.count)
+                    }
+                })
+                self.firebaseManager.readDataObserve(key: "friends","follower","\(self.myID)", function: {() -> () in
+                    if !self.firebaseManager.contentArray.isEmpty {
+                        let item = self.firebaseManager.contentArray[0]
+                        //itemの中身を辞書型に変換
+                        let content = item.value as! Dictionary<String, AnyObject>
+                        
+                        self.followerLabel.text = String(content.count)
+                    }
+                })
             }
-            
-        }, sortKey: "accountID", targetValue: firebaseManager.accountID, key: "userList", "users")
-            
-        
+        })
         self.read()
-        
     }
     
     

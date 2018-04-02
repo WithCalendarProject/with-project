@@ -23,8 +23,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         print (searchText)
         
-        
-        firebaseManager.readDataFilter(function: {() -> () in self.resultTable.reloadData()}, sortKey: "userID", targetValue: "\(searchText)", key: "userList", "users")
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "equalTo", sortKey: "userID", targetValue: "\(searchText)", function: {() -> () in
+            self.resultTable.reloadData()
+        })
     }
     
     
@@ -40,14 +41,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         
-        firebaseManager.readDataFilter(function: {() -> () in
-            
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "equalTo", sortKey: "accountID", targetValue: firebaseManager.accountID, function: {() -> () in
             let item = self.firebaseManager.contentArray[0]
             let content = item.value as! Dictionary<String, AnyObject>
             
             self.myID = String(describing: content["userID"]!)
             
-        }, sortKey: "accountID", targetValue: firebaseManager.accountID, key: "userList", "users")
+        })
        
     }
     
@@ -94,7 +94,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDa
         
         //userInfo使ってないからここでエラーが出る。
         
-        firebaseManager.readDataFilter(function: {() -> () in
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "equalTo", sortKey: "userID", targetValue: "\(searchText)", function: {() -> () in
             
             let items = self.firebaseManager.contentArray[indexPath.row]
             let content = items.value as! Dictionary<String, AnyObject>
@@ -113,7 +113,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDa
             alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel))
             self.present(alert, animated: true, completion: nil)
             
-        }, sortKey: "userID", targetValue: "\(searchText)", key: "userList", "users")
+        })
        
     }
     

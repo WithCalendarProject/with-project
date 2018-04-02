@@ -13,10 +13,8 @@ class UserViewController: UIViewController, UITextFieldDelegate{
     
     let ref = Database.database().reference() //FirebaseDatabaseのルートを指定
     let firebaseManager = FirebaseManager()
-    var userInfo: [DataSnapshot] = [] //Fetchしたデータを入れておく配列、この配列をTableViewで表示
-    var myInfo: [DataSnapshot] = [] //Fetchしたデータを入れておく配列、この配列をTableViewで表示
     var snap: DataSnapshot! //FetchしたSnapshotsを格納する変数
-    var userListSnap: DataSnapshot! //FetchしたSnapshotsを格納する変数
+    //var userListSnap: DataSnapshot! //FetchしたSnapshotsを格納する変数
     var items:Dictionary<String, AnyObject> = [:]
     var isCreate = false //データの作成か更新かを判定、trueなら作成、falseなら更新
     var userNumber = 0
@@ -94,14 +92,15 @@ class UserViewController: UIViewController, UITextFieldDelegate{
         let userID = IDTextField.text!
         let coment = ComentTextField.text!
         
-        firebaseManager.readDataNomal(function: {() -> () in
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "endAt", sortKey: "userNumber", targetValue: 1,function: {() -> () in
+            //配列の該当のデータをitemという定数に代入
+            let item = self.firebaseManager.contentArray[0]
+            //itemの中身を辞書型に変換
+            let content = item.value as! Dictionary<String, AnyObject>
+            self.userNumber = content["userNumber"] as! Int + 1
             
-            print(self.firebaseManager.contentArray.count)
-            
-            self.firebaseManager.setValue(key: "userList","users", "user\(self.firebaseManager.contentArray.count+1)",value: ["userID": userID,"accountID": (Auth.auth().currentUser?.uid)!,"userName": userName,"coment": coment,"userNumber": "\(self.firebaseManager.contentArray.count+1)"])
-            
-        }, key: "userList","users")
-        
+            self.firebaseManager.setValue(key: "userList","users", "user\(self.userNumber)",value: ["userID": userID,"accountID": (Auth.auth().currentUser?.uid)!,"userName": userName,"coment": coment,"userNumber": "\(self.userNumber)"])
+        })
         
         firebaseManager.setValue(key: (Auth.auth().currentUser?.uid)!, "userInfomation","userInfomation" ,value: ["user":(Auth.auth().currentUser?.uid)!,"userName": userName,"userID": userID,"coment": coment])
         
@@ -115,86 +114,37 @@ class UserViewController: UIViewController, UITextFieldDelegate{
         ref.keepSynced(true)
         ref.child((Auth.auth().currentUser?.uid)!)
             .child("userInfomation")
-            .child("\(self.snap.key)")
+            .child("userInfomation")
             .updateChildValues(["user":(Auth.auth().currentUser?.uid)!,"userName": self.NameTextField.text!,"userID": self.IDTextField.text!,"coment": self.ComentTextField.text!])
         
-        firebaseManager.readDataNomal(function: {() -> () in
+        firebaseManager.readDataObserveSingleEvent(key: "userList", "users", function: {() -> () in
             
             self.userNumber = self.firebaseManager.contentArray.count+1
-                
+            
             self.firebaseManager.updateValue(key: "userList","users","user\(self.userNumber)", value: ["userID": self.IDTextField.text!,"accountID": (Auth.auth().currentUser?.uid)!,"userName": self.NameTextField.text!,"coment": self.ComentTextField.text!, "userNumber": self.userNumber])
             
-        }, key: "userList", "users")
-        
+        })
     }
     
     func read()  {
         //DataEventTypeを.Valueにすることにより、なにかしらの変化があった時に、実行
         //今回は、childでユーザーIDを指定することで、ユーザーが投稿したデータの一つ上のchildまで指定することになる
-        ref.child((Auth.auth().currentUser?.uid)!)
-            .child("userInfomation")//これのせいで更新ができてない
-            .observe(.value, with: {(snapShots) in
-                if snapShots.children.allObjects is [DataSnapshot] {
-                    print("snapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                    
-                    print("snapShot...\(snapShots)") //読み込んだデータをプリント
-                    
-                    self.snap = snapShots
-                    
-                }
-                self.reload(snap: self.snap)
-            })
         
-        ref.child("userList")
-            .observe(.value, with: {(snapShots) in
-                if snapShots.children.allObjects is [DataSnapshot] {
-                    print("userListSnap.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                    
-                    print("snapShot...\(snapShots)") //読み込んだデータをプリント
-                    
-                    self.userListSnap = snapShots
-                    
-                }
-                self.userReload(snap: self.userListSnap)
-            })
-    }
-    
-    func reload(snap: DataSnapshot) {
-        if snap.exists() {
-            print(snap)
-            //DataSnapshotが存在するか確認
-            userInfo.removeAll()
-            //1つになっているDataSnapshotを分割し、配列に入れる
-            for item in snap.children {
-                userInfo.append(item as! DataSnapshot)
-            }
+        firebaseManager.readDataObserve(key: (Auth.auth().currentUser?.uid)!,"userInfomation", function: {() -> () in
+            if !self.firebaseManager.contentArray.isEmpty {
             //配列の該当のデータをitemという定数に代入
-            let item = userInfo[0]
+            let item = self.firebaseManager.contentArray[0]
             //itemの中身を辞書型に変換
             let content = item.value as! Dictionary<String, AnyObject>
-            //
-            NameLabel.text = String(describing: content["userName"]!)
-            IDLabel.text = String(describing: content["userID"]!)
-            ComentLabel.text = String(describing: content["coment"]!)
+            self.NameLabel.text = String(describing: content["userName"]!)
+            self.IDLabel.text = String(describing: content["userID"]!)
+            self.ComentLabel.text = String(describing: content["coment"]!)
+            }
             
-            // ローカルのデータベースを更新
-            ref.child((Auth.auth().currentUser?.uid)!).keepSynced(true)
-        }else{
-            userInfo.removeAll()
-        }
+        })
     }
     
-    //読み込んだデータは最初すべてのデータが一つにまとまっているので、それらを分割して、配列に入れる
-    func userReload(snap: DataSnapshot) {
-        if snap.exists() {
-            print(snap)
-            userNumber = Int(snap.childrenCount)
-            // ローカルのデータベースを更新
-            ref.child("userList").keepSynced(true)
-        }else{
-            userInfo.removeAll()
-        }
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -205,48 +155,34 @@ class UserViewController: UIViewController, UITextFieldDelegate{
         IDTextField.delegate = self
         ComentTextField.delegate = self
         
-        self.read()
+        //self.read()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        ref.child("userList")
-            .child("users")
-            .queryOrdered(byChild: "accountID")
-            .queryEqual(toValue: (Auth.auth().currentUser?.uid)!)
-            .observe(.value, with: {(snapShots) in
-                if snapShots.children.allObjects is [DataSnapshot] {
-                    print("+snapShots.children...\(snapShots.childrenCount)") //いくつのデータがあるかプリント
-                    
-                    print("snapShot...\(snapShots)") //読み込んだデータをプリント
-                    
-                    self.userListSnap = snapShots
-                    
-                }
-                if self.userListSnap.exists() {
-                    print(self.userListSnap)
-                    //DataSnapshotが存在するか確認
-                    self.myInfo.removeAll()
-                    //1つになっているDataSnapshotを分割し、配列に入れる
-                    for item in self.userListSnap.children {
-                        self.myInfo.append(item as! DataSnapshot)
-                    }
-                    print(self.myInfo.count)
-                    let item = self.myInfo[0]
-                    let content = item.value as! Dictionary<String, AnyObject>
-                    
-                    self.myID = String(describing: content["userID"]!)
-                    self.myNumber = String(describing: content["userNumber"]!)
-                    // ローカルのデータベースを更新
-                    self.ref.child((Auth.auth().currentUser?.uid)!).keepSynced(true)
-                }else{
-                    self.myInfo.removeAll()
-                }
-            })
+        self.read()
         
-            self.read()
+        firebaseManager.readDataFilterSingle(key: "userList", "users", filterType: "endAt", sortKey: "userNumber", targetValue: 1,function: {() -> () in
+            //配列の該当のデータをitemという定数に代入
+            let item = self.firebaseManager.contentArray[0]
+            //itemの中身を辞書型に変換
+            let content = item.value as! Dictionary<String, AnyObject>
+            self.userNumber = content["userNumber"] as! Int + 1
+            print("user: \(self.userNumber)")
+        })
+        
+        
+        firebaseManager.readDataFilterSingle(key: "userList", "users",filterType: "equalTo", sortKey: "accountID", targetValue: (Auth.auth().currentUser?.uid)!, function: {() -> () in
+            if !self.firebaseManager.contentArray.isEmpty {
+            let item = self.firebaseManager.contentArray[0]
+            let content = item.value as! Dictionary<String, AnyObject>
+            
+            self.myID = String(describing: content["userID"]!)
+            self.myNumber = String(describing: content["userNumber"]!)
+            }
+        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
