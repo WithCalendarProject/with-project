@@ -481,16 +481,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="up" id="hkO-ul-BWD">
-                    <connections>
-                        <action selector="swipedUp:" destination="BYZ-38-t0r" id="CML-mb-QCs"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="4Ih-rg-9zp">
-                    <connections>
-                        <action selector="downSwiped:" destination="BYZ-38-t0r" id="SxP-3C-YS8"/>
-                    </connections>
-                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="hkO-ul-BWD"/>
+                <swipeGestureRecognizer direction="down" id="4Ih-rg-9zp"/>
             </objects>
             <point key="canvasLocation" x="1154.4000000000001" y="133.5832083958021"/>
         </scene>

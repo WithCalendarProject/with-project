@@ -167,22 +167,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    //上スワイプで次の月へ
+   /* //上スワイプで次の月へ
     @IBAction func swipedUp(_ sender: UISwipeGestureRecognizer) {
         dateManager.nextMonthCalendar()
         calendarCollectionView.reloadData()
         //データを読み込むためのメソッド
         self.read()
         headerTitle.text = dateManager.CalendarHeader()
-    }
-   
+    }*/
+   /*
     @IBAction func downSwiped(_ sender: UISwipeGestureRecognizer) {
         dateManager.preMonthCalendar()
         calendarCollectionView.reloadData()
         //データを読み込むためのメソッド
         self.read()
         headerTitle.text = dateManager.CalendarHeader()
-    }
+    }*/
     
     /*
      
@@ -295,7 +295,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selected = indexPath.item
         dateManager.tapDayCalendar()
+        
         calendarCollectionView.collectionViewLayout.invalidateLayout()
+        
+        calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
+    
+        //calendarCollectionView.scrollToItem(at: index, at: .top, animated: true)
+        
         calendarCollectionView.reloadData()
         
         headerTitle.text = dateManager.CalendarHeader()//ヘッダを選択された日づけにする
