@@ -37,9 +37,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let dateManager = DateManager()
     let firebaseManager = FirebaseManager()
-    let layout = UICollectionViewFlowLayout()
     let weeks = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     let cellMargin : CGFloat = 2.0  //セルのマージン。セルのアイテムのマージンも別にあって紛らわしい。アイテムのマージンはゼロに設定し直してる
+    var cellVerticalMargin : CGFloat = 0.0
     
     //var datePlans: [DataSnapshot] = [] //Fetchしたデータを入れておく配列、この配列をTableViewで表示
     var snap: DataSnapshot! //FetchしたSnapshotsを格納する変数
@@ -59,6 +59,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewWillAppear(animated)
         
         calendarCollectionView.reloadData()
+        
         
         //データを読み込むためのメソッド
         self.read()
@@ -83,21 +84,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         //データを読み込むためのメソッド
         self.read()
         
-        /*
-        //上線のCALayerを作成
-        let topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: bottomView.frame.width, height: 1.0)
-        topBorder.backgroundColor = UIColor.lightGray.cgColor
-        
-        //下線のCALayerを作成
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0, y: calendarCollectionView.frame.height, width: calendarCollectionView.frame.width, height: 1.0)
-        bottomBorder.backgroundColor = UIColor.lightGray.cgColor
-        
-        //作成したViewに上線を追加
-        bottomView.layer.addSublayer(topBorder)
-        calendarCollectionView.layer.addSublayer(bottomBorder)
-        */
+
         headerTitle.text = dateManager.CalendarHeader()  //追加
         headerTitle.sizeToFit()
         
@@ -222,7 +209,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     //セルの垂直方向のマージンを設定
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellMargin-2
+        return cellVerticalMargin
     }
 
     
@@ -231,9 +218,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // "Cell" はストーリーボードで設定したセルのID
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath) as! CalendarCell
 
-        if (indexPath.row % 7 == 0) {
+        if (indexPath.item % 7 == 0) {
             cell.textLabel.textColor = UIColor.red
-        } else if (indexPath.row % 7 == 6) {
+        } else if (indexPath.item % 7 == 6) {
             cell.textLabel.textColor = UIColor.blue
         } else {
             cell.textLabel.textColor = UIColor.black
@@ -253,14 +240,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 //cell.textLabel.text = cell.textLabel.text! + "."
             }*/
             
-            if indexPath.row - dateManager.firstdayOfWeek() + 2  == dateManager.selectDate(){
+            if indexPath.item - dateManager.firstdayOfWeek() + 2  == dateManager.selectDate(){
                 cell.textLabel.textColor = UIColor.cyan
             }
             
-            if indexPath.row < dateManager.firstdayOfWeek()-1{
+            if indexPath.item < dateManager.firstdayOfWeek()-1{
                 cell.textLabel.text = ""
             }
-            if indexPath.row > dateManager.daysAcquisition()-(8-dateManager.lastdayOfWeek()){
+            if indexPath.item > dateManager.daysAcquisition()-(8-dateManager.lastdayOfWeek()){
                 cell.textLabel.text = ""
             }
             
@@ -306,9 +293,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //セルが選択された時の処理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected = indexPath.row
+        selected = indexPath.item
         dateManager.tapDayCalendar()
+        calendarCollectionView.collectionViewLayout.invalidateLayout()
         calendarCollectionView.reloadData()
+        
         headerTitle.text = dateManager.CalendarHeader()//ヘッダを選択された日づけにする
         print(dateManager.formatSelect())
         collectionView.deselectItem(at: indexPath, animated: true)
