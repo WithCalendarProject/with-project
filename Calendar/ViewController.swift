@@ -162,7 +162,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func delete(deleteIndexPath indexPath: IndexPath) {
-        ref.child((Auth.auth().currentUser?.uid)!).child(firebaseManager.contentArray[indexPath.row].key).removeValue()
+        ref.child((Auth.auth().currentUser?.uid)!).child("datePlans").child(firebaseManager.contentArray[indexPath.row].key).removeValue()
         firebaseManager.contentArray.remove(at: indexPath.row)
     }
     
