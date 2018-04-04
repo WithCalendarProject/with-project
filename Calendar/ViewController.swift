@@ -12,6 +12,7 @@ import UIKit
 import Firebase
 
 var selected = 0
+var selectedColor: UIColor = UIColor.cyan
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate{
     
@@ -40,6 +41,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let weeks = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     let cellMargin : CGFloat = 2.0  //セルのマージン。セルのアイテムのマージンも別にあって紛らわしい。アイテムのマージンはゼロに設定し直してる
     var cellVerticalMargin : CGFloat = 0.0
+    
     
     //var datePlans: [DataSnapshot] = [] //Fetchしたデータを入れておく配列、この配列をTableViewで表示
     var snap: DataSnapshot! //FetchしたSnapshotsを格納する変数
@@ -241,7 +243,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }*/
             
             if indexPath.item - dateManager.firstdayOfWeek() + 2  == dateManager.selectDate(){
-                cell.textLabel.textColor = UIColor.cyan
+                cell.textLabel.textColor = selectedColor
             }
             
             if indexPath.item < dateManager.firstdayOfWeek()-1{
@@ -293,12 +295,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     //セルが選択された時の処理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selected = indexPath.item
+        
+        if indexPath.item < dateManager.firstdayOfWeek()-1{
+            return
+        }
+        if indexPath.item > dateManager.daysAcquisition()-(8-dateManager.lastdayOfWeek()){
+            return
+        }
+        
+        if selected == indexPath.item, selectedColor == UIColor.cyan{
+            selectedColor = UIColor.black
+            calendarCollectionView.collectionViewLayout.invalidateLayout()
+            calendarCollectionView.setContentOffset(CGPoint(x:0,y:0), animated: true)
+        }else{
+            selectedColor = UIColor.cyan
+            selected = indexPath.item
+            calendarCollectionView.collectionViewLayout.invalidateLayout()
+            calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
+        }
         dateManager.tapDayCalendar()
         
-        calendarCollectionView.collectionViewLayout.invalidateLayout()
         
-        calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
     
         //calendarCollectionView.scrollToItem(at: index, at: .top, animated: true)
         

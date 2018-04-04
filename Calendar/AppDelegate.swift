@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        sleep(2)  //lounchscreenの表示秒数
+        sleep(1)  //lounchscreenの表示秒数
         FirebaseApp.configure()
         if Auth.auth().currentUser != nil {  //もしもユーザーがログインしていたら
             // User is signed in.

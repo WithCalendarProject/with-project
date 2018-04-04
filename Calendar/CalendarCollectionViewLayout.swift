@@ -52,7 +52,7 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
             var cellVerticalMargin:CGFloat = 0.0
             
             if i == 1{
-            if count > selected - dayOfweek, count <= selected + (7 - dayOfweek){
+            if count > selected - dayOfweek, count <= selected + (7 - dayOfweek), selectedColor == UIColor.cyan{
                 cellVerticalMargin = 100.0
             }else{
                 cellVerticalMargin = 0.0
