@@ -12,7 +12,7 @@ import UIKit
 import Firebase
 
 var selected = 0
-var selectedColor: UIColor = UIColor.cyan
+var selectedColor: UIColor = UIColor.white
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate{
     
@@ -219,6 +219,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // "Cell" はストーリーボードで設定したセルのID
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",for: indexPath) as! CalendarCell
+        
+        //cell.ovalShapeLayer.delegate = self as? CALayerDelegate
+        cell.ovalShapeLayer.removeFromSuperlayer()
+        //cell.textLabel.font = UIFont.boldSystemFont(ofSize: 12)
 
         if (indexPath.item % 7 == 0) {
             cell.textLabel.textColor = UIColor.red
@@ -230,10 +234,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         if(indexPath.section == 0){             //曜日表示
             cell.backgroundColor = UIColor.clear
+            cell.textLabel.font = UIFont.systemFont(ofSize: 12)
             cell.textLabel.text = weeks[indexPath.row]
             
         }else{                                  //日付表示
             cell.backgroundColor = UIColor.clear
+            
             cell.textLabel.text = dateManager.conversionDateFormat(index: indexPath.row) //Index番号から表示する日を求める
             cell.tag = Int(dateManager.conversionDateFormat(index: indexPath.row))!//セルのタグに日付を追加
             
@@ -243,7 +249,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }*/
             
             if indexPath.item - dateManager.firstdayOfWeek() + 2  == dateManager.selectDate(){
-                cell.textLabel.textColor = selectedColor
+                //cell.textLabel.textColor = selectedColor
+                cell.textLabel.textColor = UIColor.white
+                cell.textLabel.font = UIFont.boldSystemFont(ofSize: 12)
+                
+                cell.ovalShapeLayer.strokeColor = UIColor.cyan.cgColor  // 輪郭は青
+                cell.ovalShapeLayer.fillColor = UIColor.cyan.cgColor  // 塗りはクリア
+                cell.layer.insertSublayer(cell.ovalShapeLayer, at: 0)
+            }else{
+                cell.textLabel.font = UIFont.systemFont(ofSize: 12)
             }
             
             if indexPath.item < dateManager.firstdayOfWeek()-1{
@@ -303,21 +317,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return
         }
         
-        if selected == indexPath.item, selectedColor == UIColor.cyan{
+        if selected == indexPath.item, selectedColor == UIColor.white{
             selectedColor = UIColor.black
             calendarCollectionView.collectionViewLayout.invalidateLayout()
             calendarCollectionView.setContentOffset(CGPoint(x:0,y:0), animated: true)
         }else{
-            selectedColor = UIColor.cyan
+            selectedColor = UIColor.white
             selected = indexPath.item
             calendarCollectionView.collectionViewLayout.invalidateLayout()
             calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
         }
         dateManager.tapDayCalendar()
         
-        
-    
-        //calendarCollectionView.scrollToItem(at: index, at: .top, animated: true)
         
         calendarCollectionView.reloadData()
         

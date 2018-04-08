@@ -33,7 +33,7 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
         
         //全体の幅
         let width = (collectionView!.frame.size.width - cellMargin * numberOfColumns)/CGFloat(7)
-        let height = width * 0.8
+        let height = width
         allHeight = height + 100
         
         let dayOfweek = selected % 7
@@ -52,7 +52,7 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
             var cellVerticalMargin:CGFloat = 0.0
             
             if i == 1{
-            if count > selected - dayOfweek, count <= selected + (7 - dayOfweek), selectedColor == UIColor.cyan{
+            if count > selected - dayOfweek, count <= selected + (7 - dayOfweek), selectedColor == UIColor.white{
                 cellVerticalMargin = 100.0
             }else{
                 cellVerticalMargin = 0.0

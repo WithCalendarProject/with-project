@@ -13,8 +13,17 @@ class CalendarCell: UICollectionViewCell {
     var textLabel : UILabel!
     var dateLabel : UILabel!
     
+    var ovalShapeLayer = CAShapeLayer()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)!
+        
+        ovalShapeLayer.strokeColor = UIColor.clear.cgColor  // 輪郭は青
+        ovalShapeLayer.fillColor = UIColor.clear.cgColor  // 塗りはクリア
+        ovalShapeLayer.lineWidth = 1.0
+        ovalShapeLayer.path = UIBezierPath(ovalIn: CGRect(x:10, y:10, width:30, height:30)).cgPath
+        ovalShapeLayer.frame = self.bounds
+        layer.addSublayer(ovalShapeLayer)
         
         //UILabelを生成
         textLabel = UILabel(frame: CGRect(x:0, y:0, width:self.frame.width,  height: self.frame.height))
