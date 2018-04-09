@@ -73,7 +73,8 @@ class InputViewController: UIViewController, UITextFieldDelegate{
             update()
         }
         // 前の画面に戻る処理を作成
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
         
     }
         

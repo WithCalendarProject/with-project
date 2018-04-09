@@ -11,8 +11,9 @@
 import UIKit
 import Firebase
 
+//var selected =  Calendar.current.component(.day, from: Date())
 var selected = 0
-var selectedColor: UIColor = UIColor.white
+var selectedColor: UIColor = UIColor.black
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate{
     
@@ -22,15 +23,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBAction func prevMonthBtn(_ sender: UIButton) {
         
         dateManager.preMonthCalendar()
-        calendarCollectionView.reloadData()
+        datePlanTable.isHidden = true
+        selectedColor = UIColor.black
+        self.read()
         headerTitle.text = dateManager.CalendarHeader()
         
     }
 
     @IBAction func nextMonthBtn(_ sender: UIButton) {
-        
+
         dateManager.nextMonthCalendar()
-        calendarCollectionView.reloadData()
+        datePlanTable.isHidden = true
+        selectedColor = UIColor.black
+        self.read()
         headerTitle.text = dateManager.CalendarHeader()
         
     }
@@ -41,7 +46,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let weeks = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     let cellMargin : CGFloat = 2.0  //セルのマージン。セルのアイテムのマージンも別にあって紛らわしい。アイテムのマージンはゼロに設定し直してる
     var cellVerticalMargin : CGFloat = 0.0
-    
+    var cellRect = CGRect(x: 0,y: 0,width: 0,height: 0)
     
     //var datePlans: [DataSnapshot] = [] //Fetchしたデータを入れておく配列、この配列をTableViewで表示
     var snap: DataSnapshot! //FetchしたSnapshotsを格納する変数
@@ -53,15 +58,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var selectedSnap: DataSnapshot!
     
     @IBOutlet weak var calendarCollectionView: UICollectionView!
-    @IBOutlet weak var datePlanView: UITableView!
     
-    @IBOutlet weak var bottomView: UIView!
+    //テーブルビューのインスタンス作成
+    var datePlanTable: UITableView = UITableView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        selectedColor = UIColor.black
+        datePlanTable.isHidden = true
         calendarCollectionView.reloadData()
         
+        //テーブルビュー初期化、関連付け
+        datePlanTable.frame = CGRect(x: 0,y: cellRect.minY + cellRect.height,width: self.view.frame.width,height: 150);
+        datePlanTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.calendarCollectionView.addSubview(datePlanTable)
         
         //データを読み込むためのメソッド
         self.read()
@@ -80,12 +91,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         calendarCollectionView.delegate = self
         calendarCollectionView.dataSource = self
-        datePlanView.delegate = self
-        datePlanView.dataSource = self
+        datePlanTable.delegate = self
+        datePlanTable.dataSource = self
         
         //データを読み込むためのメソッド
         self.read()
-        
 
         headerTitle.text = dateManager.CalendarHeader()  //追加
         headerTitle.sizeToFit()
@@ -99,8 +109,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         firebaseManager.readDataFilterSingle(key: (Auth.auth().currentUser?.uid)!,"datePlans", filterType: "equalTo", sortKey: "date", targetValue: dateManager.formatSelect(), function: {() -> () in
             //テーブルビューをリロード
-            self.datePlanView.reloadData()
+            self.datePlanTable.reloadData()
         })
+        
+        calendarCollectionView.reloadData()
     }
     
     //InputViewControllerへの遷移
@@ -159,7 +171,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 //選択されたCellのNSIndexPathを渡し、データをFirebase上から削除するためのメソッド
                 self.delete(deleteIndexPath: indexPath)
                 //TableView上から削除
-                datePlanView.deleteRows(at: [indexPath as IndexPath], with: .fade)
+                datePlanTable.deleteRows(at: [indexPath as IndexPath], with: .fade)
             }
     }
     
@@ -252,7 +264,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 //cell.textLabel.textColor = selectedColor
                 cell.textLabel.textColor = UIColor.white
                 cell.textLabel.font = UIFont.boldSystemFont(ofSize: 12)
-                
+                cellRect = cell.frame
+                print(cellRect)
+                datePlanTable.frame = CGRect(x: 0,y: cellRect.minY + CGFloat(cellRect.height),width: self.view.frame.width,height: 150)
                 cell.ovalShapeLayer.strokeColor = UIColor.cyan.cgColor  // 輪郭は青
                 cell.ovalShapeLayer.fillColor = UIColor.cyan.cgColor  // 塗りはクリア
                 cell.layer.insertSublayer(cell.ovalShapeLayer, at: 0)
@@ -310,6 +324,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //セルが選択された時の処理
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        if indexPath.section == 1{
         if indexPath.item < dateManager.firstdayOfWeek()-1{
             return
         }
@@ -320,24 +335,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if selected == indexPath.item, selectedColor == UIColor.white{
             selectedColor = UIColor.black
             calendarCollectionView.collectionViewLayout.invalidateLayout()
+            //その位置までスクロールする
             calendarCollectionView.setContentOffset(CGPoint(x:0,y:0), animated: true)
+            datePlanTable.isHidden = true
         }else{
             selectedColor = UIColor.white
             selected = indexPath.item
             calendarCollectionView.collectionViewLayout.invalidateLayout()
-            calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
+            datePlanTable.isHidden = false
+            //calendarCollectionView.setContentOffset(CGPoint(x:0,y:40 * (selected/7)), animated: true)
         }
         dateManager.tapDayCalendar()
-        
         
         calendarCollectionView.reloadData()
         
         headerTitle.text = dateManager.CalendarHeader()//ヘッダを選択された日づけにする
         print(dateManager.formatSelect())
+        print(indexPath.item % 7 - (indexPath.item - selected))
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+            
         //データを読み込むためのメソッド
         self.read()
+        }
         
     }
     

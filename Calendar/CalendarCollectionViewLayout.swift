@@ -15,6 +15,7 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
     let cellMargin:CGFloat = 2.0
     var allHeight: CGFloat = 0
     
+    
     //レイアウト配列
     var layoutData = [UICollectionViewLayoutAttributes]()
     
@@ -36,7 +37,7 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
         let height = width
         allHeight = height + 100
         
-        let dayOfweek = selected % 7
+        
         
         //座標
         var y:CGFloat = 0
@@ -50,10 +51,11 @@ class CalendarCollectionViewLayout: UICollectionViewLayout {
             
             let indexPath = IndexPath(item:count, section:i)
             var cellVerticalMargin:CGFloat = 0.0
+            let dayOfWeek = count % 7
             
             if i == 1{
-            if count > selected - dayOfweek, count <= selected + (7 - dayOfweek), selectedColor == UIColor.white{
-                cellVerticalMargin = 100.0
+            if count > selected - dayOfWeek, count <= selected + (7 - dayOfWeek), selectedColor == UIColor.white{
+                cellVerticalMargin = 150.0
             }else{
                 cellVerticalMargin = 0.0
             }
