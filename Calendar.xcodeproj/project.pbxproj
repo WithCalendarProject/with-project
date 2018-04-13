@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500B400C2080752F004B4095 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B400B2080752F004B4095 /* SlideViewController.swift */; };
 		50194141207389D7008F7ACC /* CalendarCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50194140207389D7008F7ACC /* CalendarCollectionViewLayout.swift */; };
 		50194147207491A5008F7ACC /* TimelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50194146207491A5008F7ACC /* TimelineTableViewCell.swift */; };
 		502C9E2D207B2F5300F80CA3 /* SlideMenuControllerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502C9E2E207B2F5300F80CA3 /* SlideMenuControllerSwift.framework */; };
 		5077A9F81FEA1CE700D84C76 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5077A9F71FEA1CE700D84C76 /* InputViewController.swift */; };
+		508E6967208091F000D88530 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508E6966208091F000D88530 /* TabBarViewController.swift */; };
 		50A948091FD4F834002DD6C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A948081FD4F834002DD6C8 /* AppDelegate.swift */; };
 		50A9480B1FD4F834002DD6C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A9480A1FD4F834002DD6C8 /* ViewController.swift */; };
 		50A9480E1FD4F834002DD6C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50A9480C1FD4F834002DD6C8 /* Main.storyboard */; };
@@ -38,12 +40,14 @@
 /* Begin PBXFileReference section */
 		0369CC63CE9B23D14CDB363A /* Pods-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calendar/Pods-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		04C83473B34D32B0BB3659AE /* Pods_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		500B400B2080752F004B4095 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		50194140207389D7008F7ACC /* CalendarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		50194146207491A5008F7ACC /* TimelineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCell.swift; sourceTree = "<group>"; };
 		502C9E2E207B2F5300F80CA3 /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5077A9F71FEA1CE700D84C76 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		5077A9FA1FEA881400D84C76 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5077A9FC1FEA881900D84C76 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		508E6966208091F000D88530 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		50A948051FD4F834002DD6C8 /* Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A948081FD4F834002DD6C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50A9480A1FD4F834002DD6C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 				50A9481E1FD97FAB002DD6C8 /* DateManager.swift */,
 				50A9481A1FD6B102002DD6C8 /* CalendarCell.swift */,
 				50194140207389D7008F7ACC /* CalendarCollectionViewLayout.swift */,
+				508E6966208091F000D88530 /* TabBarViewController.swift */,
 				50194146207491A5008F7ACC /* TimelineTableViewCell.swift */,
 				50A9480A1FD4F834002DD6C8 /* ViewController.swift */,
 				5077A9F71FEA1CE700D84C76 /* InputViewController.swift */,
@@ -124,6 +129,7 @@
 				50DEA2FA2042F0DF00F6ED66 /* FollowViewController.swift */,
 				50C0A89E203DD8AC00D40A0E /* UserViewController.swift */,
 				50C0A89A203DD15700D40A0E /* SearchViewController.swift */,
+				500B400B2080752F004B4095 /* SlideViewController.swift */,
 				50C0A894203DA35E00D40A0E /* MyPageViewController.swift */,
 				50A9480F1FD4F834002DD6C8 /* Assets.xcassets */,
 				50A9480C1FD4F834002DD6C8 /* Main.storyboard */,
@@ -304,10 +310,12 @@
 				50C0A8A1204193D200D40A0E /* CreateCalendar.swift in Sources */,
 				50C0A895203DA35E00D40A0E /* MyPageViewController.swift in Sources */,
 				50C0A89F203DD8AC00D40A0E /* UserViewController.swift in Sources */,
+				500B400C2080752F004B4095 /* SlideViewController.swift in Sources */,
 				50DEA2FB2042F0DF00F6ED66 /* FollowViewController.swift in Sources */,
 				5077A9F81FEA1CE700D84C76 /* InputViewController.swift in Sources */,
 				50A9480B1FD4F834002DD6C8 /* ViewController.swift in Sources */,
 				50194147207491A5008F7ACC /* TimelineTableViewCell.swift in Sources */,
+				508E6967208091F000D88530 /* TabBarViewController.swift in Sources */,
 				50C0A89B203DD15800D40A0E /* SearchViewController.swift in Sources */,
 				50194141207389D7008F7ACC /* CalendarCollectionViewLayout.swift in Sources */,
 				50A948221FD998C7002DD6C8 /* DateManager.swift in Sources */,

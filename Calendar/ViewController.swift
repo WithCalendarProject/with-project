@@ -41,6 +41,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
+    @IBAction func LeftSlide(_ sender: UIBarButtonItem) {
+        self.slideMenuController()?.openLeft()
+    }
+    
+    
     let dateManager = DateManager()
     let firebaseManager = FirebaseManager()
     let weeks = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
